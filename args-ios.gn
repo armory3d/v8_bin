@@ -1,0 +1,5 @@
+enable_ios_bitcode = true
+ios_deployment_target = 10
+target_os = "ios"
+use_xcode_clang = true
+
