@@ -1,6 +1,5 @@
 libraries/win32/debug/v8_monolith.lib
 libraries/win32/release/v8_monolith.lib
-lib/
 v8/
 .cipd
 .gclient*

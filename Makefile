@@ -1,8 +1,7 @@
-OS =
 DEBUG ?= false
 ARCH ?= x64
-#V8_VERSION ?= 9.0.257.43
-V8_VERSION ?= 10.5.218.8
+V8_VERSION ?= 9.0.257.43
+#V8_VERSION ?= 10.5.218.8
 ARGS ?=
 CLANG ?= true
 # ---
@@ -19,7 +18,6 @@ ifndef OS
 		OS = macos
 	else ifeq ($(OS),Windows_NT)
 		OS = windows
-	#TODO else ifeq ($(UNAME),ios) 
 	endif
 endif
 
@@ -40,6 +38,7 @@ else
 	GN_ARGS += strip_debug_info=true
 endif
 
+GN_ARGS += target_os=\"$(OS)\"
 GN_ARGS += target_cpu=\"$(ARCH)\"
 GN_ARGS += $(shell cat args-$(OS).gn)
 GN_ARGS += $(ARGS)
@@ -48,13 +47,16 @@ ifeq ($(CLANG),true)
 	GN_ARGS += is_clang=true
 endif
 
-all: setup build
+LIB = libraries/$(OS)/$(TARGET)/libv8_monolith.$(EXT)
+
+all: build
 
 info:
 	@echo "OS=$(OS)"
 	@echo "ARCH=$(ARCH)"
 	@echo "DEBUG=$(DEBUG)"
 	@echo "EXT=$(EXT)"
+	@echo "LIB=$(LIB)"
 	@echo "CLANG=$(CLANG)"
 	@echo "V8_VERSION=$(V8_VERSION)"
 	@echo "GN_ARGS=$(GN_ARGS)"
@@ -67,29 +69,28 @@ get-v8:
 	gclient sync
 
 gen-args:
-	@echo "Building $@ $(V8_VERSION)"
+	@echo "Setting up $(LIB) $(V8_VERSION)"
 	cd v8 && git checkout $(V8_VERSION)
 	cd v8 && tools/dev/v8gen.py $(ARCH).$(TARGET) -- $(GN_ARGS)
 
-lib/$(OS)-$(ARCH)-$(TARGET).$(EXT): v8 args*.gn gen-args
+$(LIB): v8 args*.gn gen-args
 	cd v8 && ninja -C out.gn/$(ARCH).$(TARGET)
-	mkdir -p lib
-	cp v8/out.gn/$(ARCH).$(TARGET)/obj/libv8_monolith.$(EXT) lib
+	mkdir -p $(shell dirname $(LIB))
+	cp v8/out.gn/$(ARCH).$(TARGET)/obj/libv8_monolith.$(EXT) $@
 	cp -r v8/include .
 
-build: lib/$(OS)-$(ARCH)-$(TARGET).$(EXT)
+build: $(LIB) 
 
 clean_build: 
-	cd v8 && ninja -C out.gn/x64.release -t clean
+	cd v8 && ninja -C out.gn/$(ARCH).release -t clean
 	cd v8 && gn clean out.gn/$(ARCH).$(TARGET)
 
 clean_project:
-	rm -rf depot_tools/
 	rm -rf include/
-	rm -rf lib/
+	rm -rf libraries/
 	rm -rf v8/
 	rm -rf .cipd/
 	rm -f .gclient*
 
-.PHONY: info gn-args get-v8 build clean_build clean_project
+.PHONY: all build info gn-args get-v8 build clean_build clean_project
 
