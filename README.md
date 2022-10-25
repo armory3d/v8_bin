@@ -1,6 +1,9 @@
 # v8_bin
 
-```bash
+## V8 params
+
+### Windows
+```sh
 # Windows - release
 is_debug = false
 target_cpu = "x64"
@@ -22,7 +25,7 @@ libcxx_natvis_include = false
 v8_enable_snapshot_compression = false
 is_clang = false
 
-v8/build/config/compiler/BUILD.gn: replace /O2 with /O1, replace /DEBUG with /DEBUG:NONE
+# v8/build/config/compiler/BUILD.gn: replace /O2 with /O1, replace /DEBUG with /DEBUG:NONE
 
 # Windows - debug
 is_debug = true
@@ -44,13 +47,17 @@ treat_warnings_as_errors = false
 use_custom_libcxx_for_host = false
 use_custom_libcxx = false
 libcxx_abi_unstable = false
+```
 
+```sh
 # Build
 python tools/dev/v8gen.py x64.release
 ninja -C out.gn/x64.release
 ```
 
-```bash
+### Linux
+
+```sh
 # Linux - release
 is_debug = false
 target_cpu = "x64"
@@ -73,7 +80,9 @@ use_gold = false
 is_cfi = false
 ```
 
-```bash
+### MacOS
+
+```sh
 # macOS x64 - release
 is_debug = false
 target_cpu = "x64"
@@ -107,7 +116,9 @@ v8_enable_31bit_smis_on_64bit_arch = false
 v8_enable_snapshot_compression = false
 ```
 
-```bash
+### Android
+
+```sh
 # Android - release
 is_debug = false
 is_component_build = false
@@ -127,7 +138,9 @@ v8_enable_pointer_compression = false
 v8_enable_31bit_smis_on_64bit_arch = false
 v8_enable_handle_zapping = false
 v8_enable_snapshot_compression = false
+```
 
+```sh
 # In .gclient file
 target_os = ['android']
 
@@ -139,7 +152,9 @@ tools/dev/v8gen.py arm.release
 ninja -C out.gn/arm.release -j 4
 ```
 
-```bash
+### Ios
+
+```sh
 # iOS - release
 enable_ios_bitcode = true
 ios_deployment_target = 10
@@ -162,7 +177,9 @@ strip_debug_info = true
 v8_enable_pointer_compression = false
 v8_enable_31bit_smis_on_64bit_arch = false
 treat_warnings_as_errors = false
+```
 
+```sh
 # In .gclient file
 target_os = ['ios']
 
@@ -173,3 +190,31 @@ export PATH='/path/to/v8/depot_tools':$PATH
 gn args out/release-ios
 ninja -C out/release-ios v8_monolith
 ```
+
+
+## Makefile
+
+Fetch v8 source code:
+
+    make get-v8
+
+Show build settings:
+    
+    make info
+
+Print gn arguments:
+    
+    make gn-args
+
+Build:
+    
+    make build
+
+Clean the build:
+    
+    make clean_build
+
+Clean the project (reset to clone state):
+    
+    make clean_project
+
