@@ -66,6 +66,7 @@ use_custom_libcxx = false
 use_sysroot = false
 use_gold = false
 is_cfi = false
+use_goma = false
 ```
 
 ### macOS
