@@ -86,6 +86,7 @@ v8_monolithic = true
 v8_enable_pointer_compression = false
 v8_enable_31bit_smis_on_64bit_arch = false
 v8_enable_snapshot_compression = false
+use_custom_libcxx = false
 
 # Release (arm64)
 is_debug = false
@@ -101,6 +102,7 @@ v8_monolithic = true
 v8_enable_pointer_compression = false
 v8_enable_31bit_smis_on_64bit_arch = false
 v8_enable_snapshot_compression = false
+use_custom_libcxx = false
 ```
 
 ### Android
