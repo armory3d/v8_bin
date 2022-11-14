@@ -26,18 +26,20 @@ is_clang = false
 # Debug
 is_component_build = false
 is_debug = true
-symbol_level = 2
 target_cpu = "x64"
 use_goma = false
-v8_enable_backtrace = true
-v8_enable_fast_mksnapshot = true
-v8_enable_slow_dchecks = true
-v8_optimized_debug = true
-v8_monolithic = true
+dcheck_always_on = false
+v8_static_library = true
+strip_debug_info = false
+symbol_level = 1
+v8_symbol_level = 1
 v8_enable_i18n_support = false
 v8_use_external_startup_data = false
+v8_monolithic = true
+v8_enable_pointer_compression = false
+v8_enable_31bit_smis_on_64bit_arch = false
 v8_enable_snapshot_compression = false
-v8_static_library = true
+is_clang = false
 
 # Build
 python tools/dev/gm.py x64.release.all
