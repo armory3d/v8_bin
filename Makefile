@@ -1,7 +1,6 @@
 DEBUG ?= false
 ARCH ?= x64
-V8_VERSION ?= 9.0.257.43
-#V8_VERSION ?= 10.5.218.8
+V8_VERSION ?= 10.8.168.13
 ARGS ?=
 CLANG ?= true
 # ---
