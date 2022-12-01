@@ -127,14 +127,11 @@ v8_enable_i18n_support = false
 use_custom_libcxx = false
 v8_enable_pointer_compression = false
 v8_enable_31bit_smis_on_64bit_arch = false
-v8_enable_handle_zapping = false
 v8_enable_snapshot_compression = false
+dcheck_always_on = false
 
 # In .gclient file
 target_os = ['android']
-
-# Add path to depot tools
-export PATH='/path/to/v8/depot_tools':$PATH
 
 # Build
 tools/dev/v8gen.py arm.release
@@ -155,7 +152,6 @@ use_custom_libcxx = false
 use_xcode_clang = true
 v8_enable_i18n_support = false
 v8_monolithic = true
-v8_enable_handle_zapping = false
 v8_use_external_startup_data = false
 v8_enable_snapshot_compression = false
 symbol_level = 0
@@ -166,12 +162,10 @@ strip_debug_info = true
 v8_enable_pointer_compression = false
 v8_enable_31bit_smis_on_64bit_arch = false
 treat_warnings_as_errors = false
+dcheck_always_on = false
 
 # In .gclient file
 target_os = ['ios']
-
-# Add path to depot tools
-export PATH='/path/to/v8/depot_tools':$PATH
 
 # Build
 gn args out/release-ios
