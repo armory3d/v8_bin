@@ -1,5 +1,0 @@
-is_clang=true
-treat_warnings_as_errors=false
-use_custom_libcxx_for_host=false
-use_custom_libcxx=false
-libcxx_abi_unstable=false
